@@ -1,9 +1,10 @@
 package com.app.tmdb.data.pojo
 
-
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "popular_movies")
 data class PopularMovie(
@@ -29,5 +30,6 @@ data class PopularMovie(
     @SerializedName("vote_average")
     val voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int
-)
+    val voteCount: Int,
+    var favorite: Int,
+) : Serializable

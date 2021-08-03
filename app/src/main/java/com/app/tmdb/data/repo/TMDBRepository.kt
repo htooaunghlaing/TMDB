@@ -4,6 +4,8 @@ import androidx.room.withTransaction
 import com.app.tmdb.api.TMDPApi
 import com.app.tmdb.data.db.TMDBDatabase
 import com.app.tmdb.util.networkBoundResource
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TMDBRepository @Inject constructor(
@@ -44,4 +46,16 @@ class TMDBRepository @Inject constructor(
             }
         }
     )
+
+    suspend fun setFavoriteMovie(id: Int){
+        //GlobalScope.launch {
+            popularMovieDao.setFavorite(id)
+        //}
+    }
+
+    suspend fun setUnFavoriteMovie(id: Int){
+        //GlobalScope.launch {
+            popularMovieDao.setUnFavorite(id)
+        //}
+    }
 }

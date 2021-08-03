@@ -5,7 +5,13 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/main_bg.xml" value="0.10052083333333334" />
         <entry key="app/src/main/res/drawable-v24/searchview_bg_rounded.xml" value="0.10052083333333334" />
+        <entry key="app/src/main/res/drawable/card_bg.xml" value="0.103125" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.103125" />
+        <entry key="app/src/main/res/drawable/ic_chevron_right.xml" value="0.103125" />
+        <entry key="app/src/main/res/drawable/ic_favorite_24.xml" value="0.103125" />
+        <entry key="app/src/main/res/drawable/ic_favorite_border.xml" value="0.103125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_movie_details.xml" value="0.125" />
         <entry key="app/src/main/res/layout/item_movie.xml" value="0.25" />
       </map>
     </option>

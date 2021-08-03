@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="textTitleColor">#333333</color>
     <color name="backdrop_bg_color">#F8F8F8</color>
+    <color name="colorOrange">#fda142</color>
+    <color name="textGrey">#c0bfbf</color>
 </resources>

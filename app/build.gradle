@@ -93,6 +93,8 @@ dependencies {
     //Recycler
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
 }
 

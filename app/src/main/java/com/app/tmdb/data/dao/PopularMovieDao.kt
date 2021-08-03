@@ -1,5 +1,6 @@
 package com.app.tmdb.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -19,4 +20,13 @@ interface PopularMovieDao {
 
     @Query("DELETE from popular_movies")
     suspend fun deleteAllPopularMovies()
+
+    @Query("UPDATE popular_movies SET favorite =  1 where id = :movieID")
+    suspend fun setFavorite(movieID: Int)
+
+    @Query("UPDATE popular_movies SET favorite = 0 where id = :movieID")
+    suspend fun setUnFavorite(movieID: Int)
+
+    @Query("SELECT favorite from popular_movies where id = :movieID")
+    fun getFavorite(movieID: Int) : Flow<Int>
 }
