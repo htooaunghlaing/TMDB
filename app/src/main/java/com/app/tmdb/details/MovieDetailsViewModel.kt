@@ -17,18 +17,15 @@ class MovieDetailsViewModel @Inject constructor(
         tmdbRepository.setFavoriteMovie(id)
     }
 
-
-
     fun setUnFavorite(id: Int) = viewModelScope.launch {
         tmdbRepository.setUnFavoriteMovie(id)
     }
 
-//    val movieFavorite = tmdbRepository.getFavoriteStatus(id: Int) as LiveData
+    fun setUpcomingFavorite(id: Int) = viewModelScope.launch {
+        tmdbRepository.setUpcomingFavoriteMovie(id)
+    }
 
-
-//    val movieFavorite: LiveData<Int>>
-//        get() = tmd.allWords.flowOn(Dispatchers.Main)
-//            .asLiveData(context = viewModelScope.coroutineContext)
-//
-//    val movieFavorite: Flow<Int> = t.getAllWords()
+    fun setUpcomingUnFavorite(id: Int) = viewModelScope.launch {
+        tmdbRepository.setUpcomingUnFavoriteMovie(id)
+    }
 }

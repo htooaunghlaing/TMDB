@@ -3,29 +3,31 @@ package com.app.tmdb.data.pojo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 @Entity(tableName = "upcoming_movies")
 data class UpcomingMovie(
-    @PrimaryKey val id: Int,
-    val adult: Boolean,
-    @SerializedName("backdrop_path")
-    val backdropPath: String,
-    @SerializedName("genre_ids")
-    val genreIds: List<Int>,
-    @SerializedName("original_language")
-    val originalLanguage: String,
+    @PrimaryKey var id: Int,
     @SerializedName("original_title")
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
+    var originalTitle: String,
+    var adult: Boolean,
+    @SerializedName("backdrop_path")
+    var backdropPath: String?,
+    @SerializedName("genre_ids")
+    var genreIds: List<Int>,
+    @SerializedName("original_language")
+    var originalLanguage: String,
+    var overview: String,
+    var popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    var posterPath: String,
     @SerializedName("release_date")
-    val releaseDate: String,
-    val title: String,
-    val video: Boolean,
+    var releaseDate: String?,
+    var title: String,
+    var video: Boolean,
     @SerializedName("vote_average")
-    val voteAverage: Double,
+    var voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int
-)
+    var voteCount: Int,
+    var favorite: Int,
+) :Serializable

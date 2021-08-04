@@ -10,13 +10,15 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.tmdb.R
 import com.app.tmdb.data.pojo.PopularMovie
+import com.app.tmdb.data.pojo.UpcomingMovie
 import com.app.tmdb.databinding.ActivityMainBinding
 import com.app.tmdb.details.MovieDetailsActivity
 import com.app.tmdb.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), MovieItemClickListener {
+class MainActivity : AppCompatActivity(), MovieItemClickListener, UpcomingMovieClickListener {
 
     private val viewModel : MovieListViewModel by viewModels()
 
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity(), MovieItemClickListener {
         setContentView(binding.root)
 
         val popularMovieAdapter  = MovieAdapter(this@MainActivity)
-        val upcomingMovieAdapter  = UpcomingMovieAdapter()
+        val upcomingMovieAdapter  = UpcomingMovieAdapter(this@MainActivity)
 
         binding.apply {
             popularRecycler.apply {
@@ -48,6 +50,8 @@ class MainActivity : AppCompatActivity(), MovieItemClickListener {
                 pBarPopular.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
                 txtErrPopular.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
                 txtErrPopular.text = result.error?.localizedMessage
+
+                Timber.e(result.error?.localizedMessage)
             }
 
             //observe upcoming list
@@ -64,12 +68,17 @@ class MainActivity : AppCompatActivity(), MovieItemClickListener {
     }
 
     override fun onMovieClickListener(item: PopularMovie,imageView: ImageView) {
-//        val intent = Intent(this, MovieDetailsActivity::class.java)
-//        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, imageView, "transition_name")
-//        startActivity(intent, options.toBundle())
-
         val intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
         intent.putExtra("movie_object", item)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, imageView, resources.getString(R.string.app_name))
+        startActivity(intent, options.toBundle())
+    }
+
+    override fun onUpcomingMovieClick(item: UpcomingMovie, imageView: ImageView) {
+        val movie = PopularMovie.ModelMapper.from(item)
+
+        val intent = Intent(this@MainActivity, MovieDetailsActivity::class.java)
+        intent.putExtra("movie_object", movie)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, imageView, resources.getString(R.string.app_name))
         startActivity(intent, options.toBundle())
     }
@@ -78,4 +87,8 @@ class MainActivity : AppCompatActivity(), MovieItemClickListener {
 
 interface MovieItemClickListener {
     fun onMovieClickListener(item: PopularMovie, imageView: ImageView)
+}
+
+interface UpcomingMovieClickListener {
+    fun onUpcomingMovieClick(item: UpcomingMovie, imageView: ImageView)
 }

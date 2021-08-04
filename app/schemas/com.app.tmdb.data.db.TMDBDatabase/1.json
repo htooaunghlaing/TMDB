@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "71f1ab46ce49f8cc3664e1f0b9930ee3",
+    "identityHash": "9fca76fbe02afb031c3f39449476836c",
     "entities": [
       {
         "tableName": "popular_movies",
@@ -110,12 +110,18 @@
       },
       {
         "tableName": "upcoming_movies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `adult` INTEGER NOT NULL, `backdropPath` TEXT NOT NULL, `genreIds` TEXT NOT NULL, `originalLanguage` TEXT NOT NULL, `originalTitle` TEXT NOT NULL, `overview` TEXT NOT NULL, `popularity` REAL NOT NULL, `posterPath` TEXT NOT NULL, `releaseDate` TEXT NOT NULL, `title` TEXT NOT NULL, `video` INTEGER NOT NULL, `voteAverage` REAL NOT NULL, `voteCount` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `originalTitle` TEXT NOT NULL, `adult` INTEGER NOT NULL, `backdropPath` TEXT, `genreIds` TEXT NOT NULL, `originalLanguage` TEXT NOT NULL, `overview` TEXT NOT NULL, `popularity` REAL NOT NULL, `posterPath` TEXT NOT NULL, `releaseDate` TEXT, `title` TEXT NOT NULL, `video` INTEGER NOT NULL, `voteAverage` REAL NOT NULL, `voteCount` INTEGER NOT NULL, `favorite` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "originalTitle",
+            "columnName": "originalTitle",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -128,7 +134,7 @@
             "fieldPath": "backdropPath",
             "columnName": "backdropPath",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "genreIds",
@@ -139,12 +145,6 @@
           {
             "fieldPath": "originalLanguage",
             "columnName": "originalLanguage",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "originalTitle",
-            "columnName": "originalTitle",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -170,7 +170,7 @@
             "fieldPath": "releaseDate",
             "columnName": "releaseDate",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "title",
@@ -195,6 +195,12 @@
             "columnName": "voteCount",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "favorite",
+            "columnName": "favorite",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -210,7 +216,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '71f1ab46ce49f8cc3664e1f0b9930ee3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9fca76fbe02afb031c3f39449476836c')"
     ]
   }
 }

@@ -1,6 +1,5 @@
 package com.app.tmdb.util
 
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.*
 
 inline fun <ResultType, RequestType> networkBoundResource(

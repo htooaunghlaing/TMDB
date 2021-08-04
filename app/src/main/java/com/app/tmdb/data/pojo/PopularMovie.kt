@@ -1,6 +1,6 @@
 package com.app.tmdb.data.pojo
 
-import android.os.Parcelable
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -8,28 +8,48 @@ import java.io.Serializable
 
 @Entity(tableName = "popular_movies")
 data class PopularMovie(
-
-    @PrimaryKey val id: Int,
+    @PrimaryKey var id: Int,
     @SerializedName("original_title")
-    val originalTitle: String,
-    val adult: Boolean,
+    var originalTitle: String,
+    var adult: Boolean,
     @SerializedName("backdrop_path")
-    val backdropPath: String?,
+    var backdropPath: String?,
     @SerializedName("genre_ids")
-    val genreIds: List<Int>,
+    var genreIds: List<Int>,
     @SerializedName("original_language")
-    val originalLanguage: String,
-    val overview: String,
-    val popularity: Double,
+    var originalLanguage: String,
+    var overview: String,
+    var popularity: Double,
     @SerializedName("poster_path")
-    val posterPath: String,
+    var posterPath: String,
     @SerializedName("release_date")
-    val releaseDate: String?,
-    val title: String,
-    val video: Boolean,
+    var releaseDate: String?,
+    var title: String,
+    var video: Boolean,
     @SerializedName("vote_average")
-    val voteAverage: Double,
+    var voteAverage: Double,
     @SerializedName("vote_count")
-    val voteCount: Int,
+    var voteCount: Int,
     var favorite: Int,
-) : Serializable
+) : Serializable {
+    object ModelMapper {
+        fun from(movie: UpcomingMovie) =
+            PopularMovie(
+                movie.id,
+                movie.originalTitle,
+                movie.adult,
+                movie.backdropPath,
+                movie.genreIds,
+                movie.originalLanguage,
+                movie.overview,
+                movie.popularity,
+                movie.posterPath,
+                movie.releaseDate,
+                movie.title,
+                movie.video,
+                movie.voteAverage,
+                movie.voteCount,
+                movie.favorite
+            )
+    }
+}

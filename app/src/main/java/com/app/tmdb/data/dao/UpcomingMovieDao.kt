@@ -18,4 +18,10 @@ interface UpcomingMovieDao {
 
     @Query("DELETE from upcoming_movies")
     suspend fun deleteAllUpcomingMovies()
+
+    @Query("UPDATE upcoming_movies SET favorite =  1 where id = :movieID")
+    suspend fun setFavorite(movieID: Int)
+
+    @Query("UPDATE upcoming_movies SET favorite = 0 where id = :movieID")
+    suspend fun setUnFavorite(movieID: Int)
 }

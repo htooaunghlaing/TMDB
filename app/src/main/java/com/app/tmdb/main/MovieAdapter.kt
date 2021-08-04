@@ -9,14 +9,22 @@ import com.app.tmdb.data.pojo.PopularMovie
 import com.app.tmdb.databinding.ItemMovieBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import android.R
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+
 
 class MovieAdapter constructor(private val movieItemClickListener: MovieItemClickListener) :
     ListAdapter<PopularMovie, MovieAdapter.MovieViewHolder>(MovieComparator()) {
 
+
+
     class MovieViewHolder(private val itemMovieBinding: ItemMovieBinding) :
         RecyclerView.ViewHolder(itemMovieBinding.root) {
 
-        fun bind(popularMovie: PopularMovie, movieItemClickListener: MovieItemClickListener) =
+        private var lastAnimatedPosition = -1
+
+        fun bind(popularMovie: PopularMovie, movieItemClickListener: MovieItemClickListener, position: Int) =
             with(itemView) {
                 itemMovieBinding.apply {
 
@@ -30,6 +38,17 @@ class MovieAdapter constructor(private val movieItemClickListener: MovieItemClic
                     itemView.setOnClickListener{
                         movieItemClickListener.onMovieClickListener(popularMovie, imgMovie)
                     }
+
+                    val animation: Animation = AnimationUtils.loadAnimation(
+                        imgMovie.context,
+                        if (position > lastAnimatedPosition){
+                            com.app.tmdb.R.anim.up_from_bottom
+                        } else {
+                            com.app.tmdb.R.anim.down_from_top
+                        }
+                    )
+                    itemView.startAnimation(animation)
+                    lastAnimatedPosition = position
                 }
             }
 
@@ -48,7 +67,7 @@ class MovieAdapter constructor(private val movieItemClickListener: MovieItemClic
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movieItem = getItem(position)
         if (movieItem != null) {
-            holder.bind(movieItem, movieItemClickListener)
+            holder.bind(movieItem, movieItemClickListener,position)
         }
     }
 

@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TMDBRepository @Inject constructor(
-    private val tmdbAPI : TMDPApi,
+    private val tmdbAPI: TMDPApi,
     private val database: TMDBDatabase
 ) {
     private val popularMovieDao = database.popularMovieDao()
@@ -25,11 +25,10 @@ class TMDBRepository @Inject constructor(
         saveFetchResult = { popularMovieList ->
             database.withTransaction {
                 popularMovieDao.deleteAllPopularMovies()
-                popularMovieDao.insertpopularMovie(popularMovieList.popularMovieList)
+                popularMovieDao.insertpopularMovie(popularMovieList.results)
             }
         }
     )
-
 
 
     fun getUpcomingMovies() = networkBoundResource(
@@ -47,15 +46,24 @@ class TMDBRepository @Inject constructor(
         }
     )
 
-    suspend fun setFavoriteMovie(id: Int){
-        //GlobalScope.launch {
-            popularMovieDao.setFavorite(id)
-        //}
+    suspend fun setFavoriteMovie(id: Int) {
+        popularMovieDao.setFavorite(id)
+
     }
 
-    suspend fun setUnFavoriteMovie(id: Int){
-        //GlobalScope.launch {
-            popularMovieDao.setUnFavorite(id)
-        //}
+    suspend fun setUnFavoriteMovie(id: Int) {
+
+        popularMovieDao.setUnFavorite(id)
+
+    }
+
+    suspend fun setUpcomingFavoriteMovie(id: Int) {
+        upcomingMovieDao.setFavorite(id)
+
+    }
+
+    suspend fun setUpcomingUnFavoriteMovie(id: Int) {
+        upcomingMovieDao.setUnFavorite(id)
+
     }
 }
