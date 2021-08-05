@@ -3,12 +3,11 @@ package com.app.tmdb.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
+import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.tmdb.R
 import com.app.tmdb.data.pojo.PopularMovie
@@ -20,13 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import com.app.tmdb.util.ConnectionLiveData
 import javax.inject.Inject
-import androidx.recyclerview.widget.RecyclerView
-
-
-
-
-
-
 
 
 @AndroidEntryPoint
@@ -51,19 +43,24 @@ class MainActivity : AppCompatActivity(), MovieItemClickListener,
             popularRecycler.apply {
                 adapter = popularMovieAdapter
                 layoutManager = LinearLayoutManager(this@MainActivity ,LinearLayoutManager.HORIZONTAL ,false)
+                isNestedScrollingEnabled = false
                 popularRecycler.setHasFixedSize(true)
             }
 
             upcomingRecycler.apply {
                 adapter = upcomingMovieAdapter
                 layoutManager = LinearLayoutManager(this@MainActivity ,LinearLayoutManager.HORIZONTAL ,false)
+                isNestedScrollingEnabled = false
+                popularRecycler.setHasFixedSize(true)
             }
 
             //observe popular list
             viewModel.popularMovieList.observe(this@MainActivity) { result ->
+
+                popularRecycler.visibility = View.VISIBLE
                 popularMovieAdapter.submitList(result.data)
 
-                popularRecycler.isVisible = true
+
                 pBarPopular.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
                 txtErrPopular.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
                 txtErrPopular.text = result.error?.localizedMessage
@@ -73,9 +70,11 @@ class MainActivity : AppCompatActivity(), MovieItemClickListener,
 
             //observe upcoming list
             viewModel.upcomingMovieList.observe(this@MainActivity) { result ->
+
+                upcomingRecycler.visibility = View.VISIBLE
                 upcomingMovieAdapter.submitList(result.data)
 
-                upcomingRecycler.isVisible = true
+
                 pBarUpcoming.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
                 txtErrUpcoming.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
                 txtErrUpcoming.text = result.error?.localizedMessage
