@@ -33,7 +33,6 @@ class MovieAdapter constructor(private val movieItemClickListener: MovieItemClic
                 Glide.with(imgMovie)
                     .load("https://image.tmdb.org/t/p/w342${popularMovie.posterPath}")
                     .transform(CenterCrop())
-                    .placeholder(R.color.textTitleColor)
                     .into(imgMovie)
 
                 txtMovieName.text = popularMovie.originalTitle
