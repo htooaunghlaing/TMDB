@@ -93,6 +93,9 @@ dependencies {
     //Recycler
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
+    //CardView
+    implementation("androidx.cardview:cardview:1.0.0")
+
     //Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
@@ -103,4 +106,18 @@ dependencies {
 
 kapt {
     correctErrorTypes true
+}
+
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
+android {
+
+    defaultConfig {
+
+        // should correspond to key/value pairs inside the file
+        buildConfigField("String", "TMDB_API_KEY", apikeyProperties['TMDB_API_KEY'])
+
+    }
 }

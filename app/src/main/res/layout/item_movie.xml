@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="130dp"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="2dp"
     android:layout_margin="4dp"
-    app:cardCornerRadius="4dp">
+    android:foreground="?attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/backdrop_bg_color">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imgMovie"
-            android:layout_width="190dp"
-            android:layout_height="234dp"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/sample_poster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,17 +26,17 @@
         <TextView
             android:id="@+id/txtMovieName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="The Crood"
+            android:fontFamily="@font/poppins_light"
+            android:text="The God must be crazy in Myanmar"
             android:maxLines="2"
-            android:lines="2"
+            android:minLines="1"
             android:textColor="@color/textTitleColor"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -87,3 +87,6 @@ lint/tmp/
 
 # Android Profiling
 *.hprof
+
+# api key 
+#apikey.properties //remove this # for production app

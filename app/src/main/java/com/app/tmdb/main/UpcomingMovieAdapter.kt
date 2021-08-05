@@ -8,15 +8,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.app.tmdb.data.pojo.UpcomingMovie
-
 import com.app.tmdb.databinding.ItemMovieBinding
-import com.app.tmdb.databinding.ItemUpcomingMovieBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 
 class UpcomingMovieAdapter constructor(private val upcomingMovieClickListener: UpcomingMovieClickListener) : ListAdapter<UpcomingMovie, UpcomingMovieAdapter.MovieViewHolder>(MovieComparator()) {
 
-    class MovieViewHolder(private val itemMovieBinding: ItemUpcomingMovieBinding) :
+    class MovieViewHolder(private val itemMovieBinding: ItemMovieBinding) :
         RecyclerView.ViewHolder(itemMovieBinding.root){
 
         private var lastAnimatedPosition = -1
@@ -24,19 +22,19 @@ class UpcomingMovieAdapter constructor(private val upcomingMovieClickListener: U
             fun bind(upcomingMovie: UpcomingMovie, upcomingMovieClickListener: UpcomingMovieClickListener, position: Int){
                 itemMovieBinding.apply {
 
-                    Glide.with(imgUpcomingMovie)
+                    Glide.with(imgMovie)
                         .load("https://image.tmdb.org/t/p/w342${upcomingMovie.posterPath}")
                         .transform(CenterCrop())
-                        .into(imgUpcomingMovie)
+                        .into(imgMovie)
 
                     txtMovieName.text = upcomingMovie.originalTitle
 
                     itemView.setOnClickListener{
-                        upcomingMovieClickListener.onUpcomingMovieClick(upcomingMovie, imgUpcomingMovie)
+                        upcomingMovieClickListener.onUpcomingMovieClick(upcomingMovie, imgMovie)
                     }
 
                     val animation: Animation = AnimationUtils.loadAnimation(
-                        imgUpcomingMovie.context,
+                        imgMovie.context,
                         if (position > lastAnimatedPosition){
                             com.app.tmdb.R.anim.up_from_bottom
                         } else {
@@ -51,7 +49,7 @@ class UpcomingMovieAdapter constructor(private val upcomingMovieClickListener: U
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemUpcomingMovieBinding.inflate(LayoutInflater.from(parent.context),
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context),
         parent, false)
 
         return MovieViewHolder(binding)

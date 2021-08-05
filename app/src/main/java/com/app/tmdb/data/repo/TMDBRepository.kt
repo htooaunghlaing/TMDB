@@ -1,11 +1,11 @@
 package com.app.tmdb.data.repo
 
 import androidx.room.withTransaction
+import com.app.tmdb.R
 import com.app.tmdb.api.TMDPApi
+import com.app.tmdb.app.TMDBApp
 import com.app.tmdb.data.db.TMDBDatabase
 import com.app.tmdb.util.networkBoundResource
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TMDBRepository @Inject constructor(
@@ -15,12 +15,15 @@ class TMDBRepository @Inject constructor(
     private val popularMovieDao = database.popularMovieDao()
     private val upcomingMovieDao = database.upcomingMovieDao()
 
+    @Inject
+    lateinit var tmdbApp: TMDBApp
+
     fun getPopularMovies() = networkBoundResource(
         query = {
             popularMovieDao.getAllPopularMovies()
         },
         fetch = {
-            tmdbAPI.getPopularMovies()
+            tmdbAPI.getPopularMovies(com.app.tmdb.BuildConfig.TMDB_API_KEY, "en-US", 1)
         },
         saveFetchResult = { popularMovieList ->
             database.withTransaction {
@@ -36,7 +39,7 @@ class TMDBRepository @Inject constructor(
             upcomingMovieDao.getAllUpcomingMovies()
         },
         fetch = {
-            tmdbAPI.getUpcomingMovies()
+            tmdbAPI.getUpcomingMovies(com.app.tmdb.BuildConfig.TMDB_API_KEY, "en-US", 1)
         },
         saveFetchResult = { movelistResponse ->
             database.withTransaction {
@@ -52,14 +55,12 @@ class TMDBRepository @Inject constructor(
     }
 
     suspend fun setUnFavoriteMovie(id: Int) {
-
         popularMovieDao.setUnFavorite(id)
 
     }
 
     suspend fun setUpcomingFavoriteMovie(id: Int) {
         upcomingMovieDao.setFavorite(id)
-
     }
 
     suspend fun setUpcomingUnFavoriteMovie(id: Int) {

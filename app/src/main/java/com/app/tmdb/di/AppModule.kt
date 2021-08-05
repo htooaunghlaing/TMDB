@@ -2,9 +2,10 @@ package com.app.tmdb.di
 
 import android.app.Application
 import androidx.room.Room
-import androidx.viewbinding.BuildConfig
 import com.app.tmdb.api.TMDPApi
+import com.app.tmdb.app.TMDBApp
 import com.app.tmdb.data.db.TMDBDatabase
+import com.app.tmdb.util.ConnectionLiveData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,4 +61,14 @@ object AppModule {
     fun provideDatabase(app : Application) : TMDBDatabase =
         Room.databaseBuilder(app, TMDBDatabase::class.java, "tmdb_database")
             .build()
+
+    @Provides
+    @Singleton
+    fun provideConnectionLiveData(app : Application) : ConnectionLiveData =
+       ConnectionLiveData(app)
+
+    @Provides
+    @Singleton
+    fun provideTMDPApp() : TMDBApp =
+        TMDBApp()
 }
