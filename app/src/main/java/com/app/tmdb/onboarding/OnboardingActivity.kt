@@ -34,8 +34,7 @@ class OnboardingActivity : AppCompatActivity() {
         }
 
         // Making notification bar transparent
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(), MovieItemClickListener,
     @Inject
     lateinit var connectionLiveData: ConnectionLiveData
 
+
     @Inject
     lateinit var utality: Utality
 
