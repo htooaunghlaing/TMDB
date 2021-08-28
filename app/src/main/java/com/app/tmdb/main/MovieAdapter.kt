@@ -1,6 +1,5 @@
 package com.app.tmdb.main
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,13 +7,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.app.tmdb.data.pojo.PopularMovie
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.app.tmdb.databinding.ItemMovieBinding
-import android.util.DisplayMetrics
-import android.view.WindowManager
 import com.app.tmdb.R
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 
 class MovieAdapter constructor(private val movieItemClickListener: MovieItemClickListener) :
@@ -30,11 +29,18 @@ class MovieAdapter constructor(private val movieItemClickListener: MovieItemClic
         fun bind(popularMovie: PopularMovie, movieItemClickListener: MovieItemClickListener, position: Int) {
             itemMovieBinding.apply {
 
+                val circularProgress = CircularProgressDrawable(imgMovie.context)
+                circularProgress.strokeWidth = 5f
+                circularProgress.centerRadius = 30f
+                circularProgress.start()
+
                 Glide.with(imgMovie)
                     .load("https://image.tmdb.org/t/p/w342${popularMovie.posterPath}")
-                    .transform(CenterCrop())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .error(R.drawable.ic_launcher_background)
+                    .placeholder(circularProgress)
                     .into(imgMovie)
-
                 txtMovieName.text = popularMovie.originalTitle
 
                 itemView.setOnClickListener{
@@ -44,9 +50,9 @@ class MovieAdapter constructor(private val movieItemClickListener: MovieItemClic
                 val animation: Animation = AnimationUtils.loadAnimation(
                     imgMovie.context,
                     if (position > lastAnimatedPosition){
-                        com.app.tmdb.R.anim.up_from_bottom
+                        R.anim.up_from_bottom
                     } else {
-                        com.app.tmdb.R.anim.down_from_top
+                        R.anim.down_from_top
                     }
                 )
                 itemView.startAnimation(animation)
@@ -72,14 +78,6 @@ class MovieAdapter constructor(private val movieItemClickListener: MovieItemClic
         if (movieItem != null) {
             holder.bind(movieItem, movieItemClickListener,position)
         }
-//        val proportionalHeight: Int = ((getDeviceWidth(holder.itemView.context) / 2 * 1.9f).toInt())
-//        val params: TableRow.LayoutParams =
-//            TableRow.LayoutParams(
-//                TableRow.LayoutParams.MATCH_PARENT,
-//                proportionalHeight
-//            ) // (width, height)
-//
-//        holder.itemView.layoutParams = params
     }
 
 
@@ -91,14 +89,5 @@ class MovieAdapter constructor(private val movieItemClickListener: MovieItemClic
         override fun areContentsTheSame(oldItem: PopularMovie, newItem: PopularMovie) =
             oldItem == newItem
 
-    }
-
-    fun getDeviceWidth(context: Context): Int {
-        val wm =
-            context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val display = wm.defaultDisplay
-        val metrics = DisplayMetrics()
-        display.getMetrics(metrics)
-        return metrics.widthPixels
     }
 }

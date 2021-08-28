@@ -6,6 +6,7 @@ import com.app.tmdb.api.TMDPApi
 import com.app.tmdb.app.TMDBApp
 import com.app.tmdb.data.db.TMDBDatabase
 import com.app.tmdb.util.ConnectionLiveData
+import com.app.tmdb.util.Utality
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -71,4 +72,9 @@ object AppModule {
     @Singleton
     fun provideTMDPApp() : TMDBApp =
         TMDBApp()
+
+    @Provides
+    @Singleton
+    fun provideUtality() : Utality =
+        Utality()
 }

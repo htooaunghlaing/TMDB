@@ -19,6 +19,9 @@ import timber.log.Timber
 import android.view.ViewAnimationUtils
 import android.util.TypedValue
 import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.core.content.ContextCompat
+import com.app.tmdb.util.Utality
+import javax.inject.Inject
 import kotlin.math.hypot
 import kotlin.math.max
 
@@ -28,6 +31,8 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMovieDetailsBinding
     private val viewModel: MovieDetailsViewModel by viewModels()
+
+    @Inject lateinit var utality: Utality
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +45,11 @@ class MovieDetailsActivity : AppCompatActivity() {
 
 
         binding.apply {
+
+            //change statusbar color
+            utality.setStatusBarColor(this@MovieDetailsActivity, ContextCompat.getColor(applicationContext,
+                R.color.colorPrimaryDark))
+
             txtTitle.text = movieDetail.originalTitle
             txtOverView.text = movieDetail.overview
 

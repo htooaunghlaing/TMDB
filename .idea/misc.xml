@@ -13,9 +13,13 @@
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.21979166666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_movie_details.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/activity_onboarding.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_list_movie.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_movie.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_upcoming_movie.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/welcome_slide_one.xml" value="0.1046875" />
+        <entry key="app/src/main/res/layout/welcome_slide_three.xml" value="0.1046875" />
+        <entry key="app/src/main/res/layout/welcome_slide_two.xml" value="0.1046875" />
       </map>
     </option>
   </component>

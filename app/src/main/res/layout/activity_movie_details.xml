@@ -44,7 +44,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="Fast &amp; Furious"
+            tools:text="Fast &amp; Furious"
             android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
@@ -55,8 +55,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/img_card_one"
-            android:layout_width="0dp"
-            android:layout_height="280dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
@@ -70,10 +70,11 @@
 
             <ImageView
                 android:id="@+id/imgPoster"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
+                android:layout_width="150dp"
+                android:layout_height="220dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/sample_poster"
+                android:layout_gravity="center"
                 android:transitionName="@string/app_name" />
 
 

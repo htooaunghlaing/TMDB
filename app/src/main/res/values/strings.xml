@@ -4,4 +4,17 @@
     <string name="str_popular">Popular</string>
     <string name="str_upcoming">Upcoming</string>
     <string name="str_lang">en-US</string>
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Welcome from MovieApp</string>
+    <string name="slide_1_desc">The easiest way to find movie from our special movie list</string>
+
+    <string name="slide_2_title">Movie Tickets</string>
+    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+
+    <string name="slide_3_title">Great Discounts</string>
+    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
 </resources>

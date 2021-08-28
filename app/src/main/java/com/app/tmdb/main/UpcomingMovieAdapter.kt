@@ -7,10 +7,13 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.app.tmdb.R
 import com.app.tmdb.data.pojo.UpcomingMovie
 import com.app.tmdb.databinding.ItemMovieBinding
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 
 class UpcomingMovieAdapter constructor(private val upcomingMovieClickListener: UpcomingMovieClickListener) : ListAdapter<UpcomingMovie, UpcomingMovieAdapter.MovieViewHolder>(MovieComparator()) {
 
@@ -22,9 +25,18 @@ class UpcomingMovieAdapter constructor(private val upcomingMovieClickListener: U
             fun bind(upcomingMovie: UpcomingMovie, upcomingMovieClickListener: UpcomingMovieClickListener, position: Int){
                 itemMovieBinding.apply {
 
+                    val circularProgress = CircularProgressDrawable(imgMovie.context)
+                    circularProgress.strokeWidth = 5f
+                    circularProgress.centerRadius = 30f
+                    circularProgress.start()
+
                     Glide.with(imgMovie)
                         .load("https://image.tmdb.org/t/p/w342${upcomingMovie.posterPath}")
-                        .transform(CenterCrop())
+                        .thumbnail(0.5f)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .transition(withCrossFade())
+                        .error(R.drawable.ic_launcher_background)
+                        .placeholder(circularProgress)
                         .into(imgMovie)
 
                     txtMovieName.text = upcomingMovie.originalTitle
@@ -36,9 +48,9 @@ class UpcomingMovieAdapter constructor(private val upcomingMovieClickListener: U
                     val animation: Animation = AnimationUtils.loadAnimation(
                         imgMovie.context,
                         if (position > lastAnimatedPosition){
-                            com.app.tmdb.R.anim.up_from_bottom
+                            R.anim.up_from_bottom
                         } else {
-                            com.app.tmdb.R.anim.down_from_top
+                            R.anim.down_from_top
                         }
                     )
                     itemView.startAnimation(animation)

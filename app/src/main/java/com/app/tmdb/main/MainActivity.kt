@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.tmdb.R
@@ -18,6 +19,7 @@ import com.app.tmdb.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import com.app.tmdb.util.ConnectionLiveData
+import com.app.tmdb.util.Utality
 import javax.inject.Inject
 
 
@@ -30,6 +32,9 @@ class MainActivity : AppCompatActivity(), MovieItemClickListener,
     @Inject
     lateinit var connectionLiveData: ConnectionLiveData
 
+    @Inject
+    lateinit var utality: Utality
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,6 +45,11 @@ class MainActivity : AppCompatActivity(), MovieItemClickListener,
         val upcomingMovieAdapter  = UpcomingMovieAdapter(this@MainActivity)
 
         binding.apply {
+
+            //change statusbar color
+            utality.setStatusBarColor(this@MainActivity, ContextCompat.getColor(applicationContext,
+                R.color.colorPrimaryDark))
+
             popularRecycler.apply {
                 adapter = popularMovieAdapter
                 layoutManager = LinearLayoutManager(this@MainActivity ,LinearLayoutManager.HORIZONTAL ,false)
