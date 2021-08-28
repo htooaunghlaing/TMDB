@@ -8,9 +8,9 @@ import android.content.Context
 import com.app.tmdb.main.MainActivity
 import android.content.Intent
 import android.graphics.Color
-import android.text.Html.fromHtml
 import android.view.*
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.app.tmdb.R
 import com.app.tmdb.databinding.ActivityOnboardingBinding
@@ -80,7 +80,7 @@ class OnboardingActivity : AppCompatActivity() {
         binding.layoutDots.removeAllViews()
         for (i in dots.indices) {
             dots[i] = TextView(this)
-            dots[i]!!.text = fromHtml("&#8226;")
+            dots[i]!!.text = HtmlCompat.fromHtml("&#8226;", HtmlCompat.FROM_HTML_MODE_LEGACY)
             dots[i]!!.textSize = 35f
             dots[i]!!.setTextColor(colorsInactive[currentPage])
             binding.layoutDots.addView(dots[i])

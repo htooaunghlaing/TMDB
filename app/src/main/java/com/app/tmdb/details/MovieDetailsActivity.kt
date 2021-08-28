@@ -72,7 +72,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                 btnFavorite.startAnimation(animation)
                 if (movieDetail.favorite == 0) {
                     Timber.d("NOT FAVORITE YET, Now FAVORITING")
-                    if(movieType.equals("popular")){
+                    if(movieType == "popular"){
                         viewModel.setFavorite(movieDetail.id)
                     }else{
                         viewModel.setUpcomingFavorite(movieDetail.id)
@@ -82,7 +82,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     btnFavorite.setImageResource(R.drawable.ic_favorite_24)
                 } else {
                     Timber.d("FAVORITED , Now UNFAVORITING")
-                    if(movieType.equals("popular")){
+                    if(movieType == "popular"){
                         viewModel.setUnFavorite(movieDetail.id)
                     }else{
                         viewModel.setUpcomingUnFavorite(movieDetail.id)

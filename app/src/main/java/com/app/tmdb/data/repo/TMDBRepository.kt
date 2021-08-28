@@ -1,7 +1,6 @@
 package com.app.tmdb.data.repo
 
 import androidx.room.withTransaction
-import com.app.tmdb.R
 import com.app.tmdb.api.TMDPApi
 import com.app.tmdb.app.TMDBApp
 import com.app.tmdb.data.db.TMDBDatabase
@@ -51,12 +50,10 @@ class TMDBRepository @Inject constructor(
 
     suspend fun setFavoriteMovie(id: Int) {
         popularMovieDao.setFavorite(id)
-
     }
 
     suspend fun setUnFavoriteMovie(id: Int) {
         popularMovieDao.setUnFavorite(id)
-
     }
 
     suspend fun setUpcomingFavoriteMovie(id: Int) {
@@ -65,6 +62,5 @@ class TMDBRepository @Inject constructor(
 
     suspend fun setUpcomingUnFavoriteMovie(id: Int) {
         upcomingMovieDao.setUnFavorite(id)
-
     }
 }
